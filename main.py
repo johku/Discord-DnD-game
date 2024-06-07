@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 import os
 import glob
+import random
 
 assistant_id = ""
 thread_id = ""
@@ -177,6 +178,16 @@ async def on_message(message):
         url = Dall_E(description)
 
         await message.channel.send(url)
+
+        # Check if the message starts with "!prompt"
+    if message.content.startswith('!roll'):
+
+        number = random.randint(1, 21)
+
+        response = f"Your dice roll was: {number}"
+
+        # Send the response back to the Discord channel
+        await message.channel.send(response)
 
 bot.run(DISCORD_API_TOKEN)
 

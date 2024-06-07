@@ -5,6 +5,7 @@ Discord (chatGPT) assistant with the personality of Splinter from TMNT.
 
 !image "insert text" for Dall-E image
 
+!roll	Rolls 20 sided dice
 
 # Setup
 ## Create bot with no functionality
