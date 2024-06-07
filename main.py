@@ -29,7 +29,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 def create_bot():
     # Create Bot
     stock_bot_assistant = client.beta.assistants.create(
-        name = "stock-bot",
+        name = "dungeon-master",
         instructions = "You are dungeons and dragons discord bot. You are the worlds best dungeon master.",
         tools=[{"type": "file_search"}],
         model = model,
@@ -165,7 +165,7 @@ async def on_message(message):
             file.write(response)
 
         # Send the response as a text file attachment to the Discord channel
-        await message.channel.send("Here is the analysis result:", file=discord.File("response.txt"))
+        await message.channel.send(file=discord.File("response.txt"))
 
         # Delete the local text file
         os.remove("response.txt")
