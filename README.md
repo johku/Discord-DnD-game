@@ -1,5 +1,5 @@
 # Discord-DnD-game
-Discord (chatGPT) assistant with the personality of Splinter from TMNT.
+Discord DnD game with chatGPT assistant as dungeon master.
 
 !prompt "insert text" for ChatGPT prompt
 
