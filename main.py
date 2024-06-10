@@ -203,12 +203,25 @@ async def on_message(message):
 
         await message.channel.send(url)
 
-        # Check if the message starts with "!prompt"
+    # Check if the message starts with "!roll"
     if message.content.startswith('!roll'):
+        try:
+            # Extract the upper limit after "!roll" (excluding the command itself)
+            upper_limit = message.content[len('!roll'):].strip()
 
-        number = random.randint(1, 21)
+            # Convert the upper limit to an integer
+            upper_limit = int(upper_limit)
 
-        response = f"Your dice roll was: {number}"
+            # Ensure the upper limit is greater than 1
+            if upper_limit < 1:
+                response = "Please provide an upper limit greater than 0."
+            else:
+                # Roll the dice
+                number = random.randint(1, upper_limit)
+                response = f"Your dice roll was: {number}"
+
+        except ValueError:
+            response = "Please provide a valid integer for the upper limit."
 
         # Send the response back to the Discord channel
         await message.channel.send(response)

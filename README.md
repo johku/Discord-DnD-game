@@ -5,7 +5,7 @@ Discord DnD game with chatGPT assistant as dungeon master.
 
 !image "insert text" for Dall-E image
 
-!roll	Rolls 20 sided dice
+!roll "insert number" rolls x sided dice
 
 # Setup
 ## Create bot with no functionality
