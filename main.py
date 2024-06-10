@@ -101,6 +101,27 @@ def create_run():
     global run_id
     run_id = run.id
 
+def wrap_text_in_file(file_path, line_length=200):
+    with open(file_path, 'r') as infile:
+        lines = infile.readlines()
+
+    wrapped_lines = []
+
+    for line in lines:
+        line = line.rstrip('\n')
+        while len(line) > line_length:
+            # Find the position to split the line
+            split_pos = line.rfind(' ', 0, line_length)
+            if split_pos == -1:
+                split_pos = line_length
+            wrapped_lines.append(line[:split_pos])
+            line = line[split_pos:].lstrip()
+        wrapped_lines.append(line)
+
+    with open(file_path, 'w') as outfile:
+        for line in wrapped_lines:
+            outfile.write(line + '\n')
+
 
 def ChatGPT(client, thread_id, run_id, sleep_interval=5):
 
@@ -162,14 +183,17 @@ async def on_message(message):
         response = ChatGPT(client=client, thread_id=thread_id, run_id=run_id)
 
         # Write response to a text file
-        with open("response.txt", "w") as file:
+        response_file_path = "response.txt"
+        with open(response_file_path, "w") as file:
             file.write(response)
 
+        wrap_text_in_file(response_file_path)
+
         # Send the response as a text file attachment to the Discord channel
-        await message.channel.send(file=discord.File("response.txt"))
+        await message.channel.send(file=discord.File(response_file_path))
 
         # Delete the local text file
-        os.remove("response.txt")
+        os.remove(response_file_path)
 
     # Check if the message starts with "!image"
     if message.content.startswith("!image"):
